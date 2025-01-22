@@ -1,6 +1,6 @@
 {
   "name": "ai-code-reviewer",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "AI-powered code review tool using OpenAI",
   "type": "module",
   "main": "lib/codeReviewBot.js",
