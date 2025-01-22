@@ -5,6 +5,7 @@ import { join, resolve } from 'path';
 import { cwd } from 'process';
 import { createInterface } from 'readline';
 import { CodeReviewBot } from '../lib/codeReviewBot.js';
+import fs from 'fs/promises';
 
 async function askForConfirmation(question) {
   const readline = createInterface({
@@ -30,12 +31,13 @@ async function main() {
 
     // Get current working directory
     const projectDir = cwd();
-    
+
     // Parse command line arguments
     const args = process.argv.slice(2);
     const branch = args.find(arg => arg.startsWith('--branch='))?.split('=')[1] || 'main';
     const output = args.find(arg => arg.startsWith('--output='))?.split('=')[1] || 'review.md';
     const applyChanges = args.includes('--apply');
+    const generateDocs = args.includes('--generate-docs');
 
     // Convert output path to absolute path if relative
     const outputPath = resolve(projectDir, output);
@@ -74,6 +76,23 @@ async function main() {
       }
     } else if (applyChanges) {
       console.log('\nNo modifications suggested in the review.');
+    }
+
+    // Generate documentation if requested
+    if (generateDocs) {
+      const commitMessages = await reviewer.getCommitMessages(branch);
+
+      if (!diffContent) {
+        throw new Error('No changes found to document');
+      }
+
+      const documentation = await reviewer.generateDocumentation(diffContent, commitMessages);
+      const docOutput = await reviewer.formatDocumentationOutput(documentation);
+
+      // Save to a documentation file
+      const docPath = resolve(projectDir, 'CHANGES.md');
+      await fs.writeFile(docPath, docOutput);
+      console.log(`Documentation saved to ${docPath}`);
     }
 
   } catch (error) {
