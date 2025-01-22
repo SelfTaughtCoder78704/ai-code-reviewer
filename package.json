@@ -1,0 +1,32 @@
+{
+  "name": "ai-code-reviewer",
+  "version": "1.0.15",
+  "description": "AI-powered code review tool using OpenAI",
+  "type": "module",
+  "main": "lib/codeReviewBot.js",
+  "bin": {
+    "ai-code-review": "bin/cli.js",
+    "generate-docs": "./bin/generate-docs.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "generate-docs"
+  },
+  "keywords": [
+    "code-review",
+    "ai",
+    "openai",
+    "git",
+    "developer-tools"
+  ],
+  "author": "SelfTaughtCoder78704",
+  "license": "MIT",
+  "dependencies": {
+    "openai": "^4.78.1",
+    "simple-git": "^3.27.0",
+    "commander": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
