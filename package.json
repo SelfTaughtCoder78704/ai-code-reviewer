@@ -1,12 +1,11 @@
 {
   "name": "ai-code-reviewer",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "AI-powered code review tool using OpenAI",
   "type": "module",
   "main": "lib/codeReviewBot.js",
   "bin": {
-    "ai-code-review": "bin/cli.js",
-    "generate-docs": "./bin/generate-docs.js"
+    "ai-code-review": "bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
